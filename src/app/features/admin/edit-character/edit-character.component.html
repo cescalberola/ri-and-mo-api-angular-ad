@@ -1,0 +1,33 @@
+<div class="edit-container">
+  <h2>Editar Personaje</h2>
+  <form [formGroup]="form" (ngSubmit)="save()">
+    <div class="form-group">
+      <label for="name">Nombre</label>
+      <input id="name" formControlName="name" />
+    </div>
+
+    <div class="form-group">
+      <label for="status">Estado</label>
+      <select id="status" formControlName="status">
+        <option value="Alive">Alive</option>
+        <option value="Dead">Dead</option>
+        <option value="unknown">Unknown</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="species">Especie</label>
+      <input id="species" formControlName="species" />
+    </div>
+
+    <div class="form-group">
+      <label for="image">URL Imagen</label>
+      <input id="image" formControlName="image" />
+    </div>
+
+    <div class="buttons">
+      <button type="submit" [disabled]="form.invalid">Guardar</button>
+      <button type="button" (click)="router.navigate(['/admin'])">Cancelar</button>
+    </div>
+  </form>
+</div>

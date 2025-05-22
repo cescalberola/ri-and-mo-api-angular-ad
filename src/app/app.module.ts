@@ -24,8 +24,6 @@ import { UserPanelComponent } from './features/user-panel/user-panel.component';
   declarations: [
     AppComponent,
     LoginComponent,
-    AdminPanelComponent,
-    UserPanelComponent,
     CharactersListComponent,
     CharacterDetailComponent
   ],

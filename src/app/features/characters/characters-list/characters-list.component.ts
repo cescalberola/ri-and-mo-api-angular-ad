@@ -15,6 +15,7 @@ import {
   takeUntil
 } from 'rxjs';
 import { CharactersService } from '../characters.service';
+import { AuthService } from '../../../core/auth/auth.service';
 
 @Component({
   selector: 'app-characters-list',
@@ -29,7 +30,8 @@ export class CharactersListComponent implements OnInit, OnDestroy {
 
   constructor(
     private fb: FormBuilder,
-    private svc: CharactersService
+    private svc: CharactersService,
+    public auth: AuthService
   ) {}
 
   ngOnInit() {
@@ -47,6 +49,11 @@ export class CharactersListComponent implements OnInit, OnDestroy {
 
   setFilter(status: '' | 'Alive' | 'Dead') {
     this.statusFilter = status;
+  }
+
+  deleteCharacter(id: number) {
+    if (!confirm('¿Seguro que quieres eliminar este personaje?')) return;
+    this.svc.deleteFromMemory(id);
   }
 
   ngOnDestroy() {

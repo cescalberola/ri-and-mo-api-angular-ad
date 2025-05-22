@@ -1,26 +1,40 @@
-import { Injectable } from '@angular/core';
 import {
   CanActivate,
+  CanActivateChild,
+  CanLoad,
+  Route,
+  UrlSegment,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
   Router
 } from '@angular/router';
+import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate, CanLoad, CanActivateChild {
   constructor(private auth: AuthService, private router: Router) {}
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): boolean {
-    const expectedRoles = route.data['roles'] as Array<string>;
-    if (this.auth.isLoggedIn() && expectedRoles.includes(this.auth.role!)) {
+  private checkRoles(allowedRoles: string[] | undefined): boolean {
+    if (this.auth.isLoggedIn() && allowedRoles?.includes(this.auth.role!)) {
       return true;
     }
-    // no autorizado → redirigir al home
     this.router.navigate(['/']);
     return false;
+  }
+
+  canLoad(route: Route, segments: UrlSegment[]): boolean {
+    const roles = route.data?.['roles'] as string[] | undefined;
+    return this.checkRoles(roles);
+  }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    const roles = route.data?.['roles'] as string[] | undefined;
+    return this.checkRoles(roles);
+  }
+
+  canActivateChild(childRoute: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    const roles = childRoute.data?.['roles'] as string[] | undefined;
+    return this.checkRoles(roles);
   }
 }

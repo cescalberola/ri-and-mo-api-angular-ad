@@ -1,4 +1,3 @@
-<!-- src/app/features/characters/characters-list/characters-list.component.html -->
 
 <!-- 1) Búsqueda -->
 <form [formGroup]="form" class="search-form">
@@ -44,8 +43,13 @@
           }">●</span>
         {{ c.status }} — {{ c.species }}
       </p>
-      <button class="btn-details" [routerLink]="['/characters', c.id]">
-        Ver detalles
+      <button *ngIf="auth.role==='admin'"
+        [routerLink]="['/admin/edit', c.id]">
+        Editar
+      </button>
+      <button *ngIf="auth.role==='admin'"
+        (click)="deleteCharacter(c.id)">
+        Eliminar
       </button>
     </div>
   </div>

@@ -1,27 +1,31 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { AdminPanelComponent } from './features/admin-panel/admin-panel.component';
-import { UserPanelComponent } from './features/user-panel/user-panel.component';
 import { CharactersListComponent } from './features/characters/characters-list/characters-list.component';
 import { CharacterDetailComponent } from './features/characters/character-detail/character-detail.component';
-import { AuthGuard } from './core/auth/auth.guard';
 import { LoginComponent } from './features/login/login.component';
+import { AuthGuard } from './core/auth/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },      // ruta pública de login
-  {
-    path: 'user',
-    component: UserPanelComponent,
-    canActivate: [AuthGuard],
-    data: { roles: ['user'] }
-  },
+  { path: '', component: LoginComponent },
+
+  // Módulos lazy‑loaded
   {
     path: 'admin',
-    component: AdminPanelComponent,
-    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('./features/admin/admin.module').then(m => m.AdminModule),
+    canLoad: [AuthGuard],
     data: { roles: ['admin'] }
   },
+  {
+    path: 'user',
+    loadChildren: () =>
+      import('./features/user/user.module').then(m => m.UserModule),
+    canLoad: [AuthGuard],
+    data: { roles: ['user'] }
+  },
+
+  // Rutas públicas o mixtas
   {
     path: 'characters',
     component: CharactersListComponent,
@@ -34,9 +38,9 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { roles: ['user','admin'] }
   },
+
   { path: '**', redirectTo: '' }
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
