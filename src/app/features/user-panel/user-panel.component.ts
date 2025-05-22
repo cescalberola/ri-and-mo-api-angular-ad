@@ -3,11 +3,11 @@ import { AuthService } from '../../core/auth/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-admin-panel',
-  templateUrl: './admin-panel.component.html',
-  styleUrls: ['./admin-panel.component.scss']
+  selector: 'app-user-panel',
+  templateUrl: './user-panel.component.html',
+  styleUrls: ['./user-panel.component.scss']
 })
-export class AdminPanelComponent {
+export class UserPanelComponent {
   constructor(
     private auth: AuthService,
     private router: Router

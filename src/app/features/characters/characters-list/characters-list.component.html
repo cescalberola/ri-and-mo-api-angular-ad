@@ -1,0 +1,52 @@
+<!-- src/app/features/characters/characters-list/characters-list.component.html -->
+
+<!-- 1) Búsqueda -->
+<form [formGroup]="form" class="search-form">
+  <input formControlName="name" placeholder="Buscar personaje..." />
+</form>
+
+<!-- 2) Botones de filtro -->
+<div class="filter-buttons">
+  <button
+    type="button"
+    (click)="setFilter('')"
+    [ngClass]="{ active: statusFilter === '' }"
+  >
+    Todos
+  </button>
+  <button
+    type="button"
+    (click)="setFilter('Alive')"
+    [ngClass]="{ active: statusFilter === 'Alive' }"
+  >
+    Vivos
+  </button>
+  <button
+    type="button"
+    (click)="setFilter('Dead')"
+    [ngClass]="{ active: statusFilter === 'Dead' }"
+  >
+    Muertos
+  </button>
+</div>
+
+<!-- 3) Grid de tarjetas, aplicando el pipe statusFilter -->
+<div class="cards-container">
+  <div class="card"
+       *ngFor="let c of characters | statusFilter: statusFilter">
+    <img class="card-img" [src]="c.image" [alt]="c.name" />
+    <div class="card-body">
+      <h3 class="card-title">{{ c.name }}</h3>
+      <p class="card-text">
+        <span [ngClass]="{
+            alive: c.status==='Alive',
+            dead:  c.status==='Dead'
+          }">●</span>
+        {{ c.status }} — {{ c.species }}
+      </p>
+      <button class="btn-details" [routerLink]="['/characters', c.id]">
+        Ver detalles
+      </button>
+    </div>
+  </div>
+</div>
