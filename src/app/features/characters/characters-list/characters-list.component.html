@@ -29,28 +29,10 @@
   </button>
 </div>
 
-<!-- 3) Grid de tarjetas, aplicando el pipe statusFilter -->
 <div class="cards-container">
-  <div class="card"
-       *ngFor="let c of characters | statusFilter: statusFilter">
-    <img class="card-img" [src]="c.image" [alt]="c.name" />
-    <div class="card-body">
-      <h3 class="card-title">{{ c.name }}</h3>
-      <p class="card-text">
-        <span [ngClass]="{
-            alive: c.status==='Alive',
-            dead:  c.status==='Dead'
-          }">●</span>
-        {{ c.status }} — {{ c.species }}
-      </p>
-      <button *ngIf="auth.role==='admin'"
-        [routerLink]="['/admin/edit', c.id]">
-        Editar
-      </button>
-      <button *ngIf="auth.role==='admin'"
-        (click)="deleteCharacter(c.id)">
-        Eliminar
-      </button>
-    </div>
-  </div>
+  <app-character-card
+    *ngFor="let c of characters | statusFilter: statusFilter"
+    [character]="c"
+  ></app-character-card>
 </div>
+

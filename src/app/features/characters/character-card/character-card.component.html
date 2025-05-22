@@ -1,0 +1,39 @@
+<!-- src/app/features/characters/character-card/character-card.component.html -->
+<div class="card">
+  <img
+    class="card-img"
+    [src]="getCharacterImageUrl()"
+    [alt]="character.name"
+  />
+  <div class="card-body">
+    <h3 class="card-title">{{ character.name }}</h3>
+    <p class="card-text">
+      <span
+        [ngClass]="{
+          alive: character.status === 'Alive',
+          dead: character.status === 'Dead'
+        }"
+        >●</span
+      >
+      {{ character.status }} — {{ character.species }}
+    </p>
+
+    <!-- Solo admin: Editar y Eliminar -->
+    <ng-container *ngIf="auth.role === 'admin'">
+      <button
+        class="btn-edit"
+        (click)="edit.emit(character.id)"
+        type="button"
+      >
+        Editar
+      </button>
+      <button
+        class="btn-delete"
+        (click)="onDelete()"
+        type="button"
+      >
+        Eliminar
+      </button>
+    </ng-container>
+  </div>
+</div>

@@ -14,18 +14,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 // Componentes raíz y de nivel aplicación
 import { AppComponent } from './app.component';
-import { AdminPanelComponent } from './features/admin-panel/admin-panel.component';
-import { CharactersListComponent } from './features/characters/characters-list/characters-list.component';
-import { CharacterDetailComponent } from './features/characters/character-detail/character-detail.component';
 import { LoginComponent } from './features/login/login.component';
-import { UserPanelComponent } from './features/user-panel/user-panel.component';
+import { CharactersModule } from './features/characters/characters.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent,
-    CharactersListComponent,
-    CharacterDetailComponent
+    LoginComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'serverApp' }), // si usas SSR
@@ -33,7 +28,8 @@ import { UserPanelComponent } from './features/user-panel/user-panel.component';
     AppRoutingModule,
     CoreModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CharactersModule
   ],
   providers: [],
   bootstrap: [AppComponent]
