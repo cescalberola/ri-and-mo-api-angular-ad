@@ -23,7 +23,7 @@ import { CharactersModule } from './features/characters/characters.module';
     LoginComponent
   ],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }), // si usas SSR
+    BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     CoreModule,

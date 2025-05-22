@@ -16,11 +16,11 @@ export class LoginComponent {
 
   loginAsUser() {
     this.auth.loginAs('user');
-    this.router.navigate(['/user']);
+    this.router.navigate(['/characters']);
   }
 
   loginAsAdmin() {
     this.auth.loginAs('admin');
-    this.router.navigate(['/admin']);
+    this.router.navigate(['/characters']);
   }
 }

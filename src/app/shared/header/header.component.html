@@ -1,0 +1,14 @@
+<nav class="app-header">
+  <div class="left">
+    <a routerLink="/" class="brand">Rick &amp; Morty App</a>
+  </div>
+  <div class="right">
+    <ng-container *ngIf="auth.isLoggedIn(); else loggedOut">
+      <span class="role">Rol: {{ auth.role }}</span>
+      <button class="btn" (click)="logout()">Logout</button>
+    </ng-container>
+    <ng-template #loggedOut>
+      <button class="btn" (click)="goToLogin()">Login</button>
+    </ng-template>
+  </div>
+</nav>
