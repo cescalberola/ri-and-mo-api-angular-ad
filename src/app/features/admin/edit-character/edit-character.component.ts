@@ -28,8 +28,11 @@ export class EditCharacterComponent implements OnInit {
   }
 
   ngOnInit() {
-    const id = +this.route.snapshot.params['id'];
-    this.svc.fetchById(id).subscribe(c => {
+    // 1) lee el id de la URL Y lo almacena en this.id
+    this.id = +this.route.snapshot.params['id'];
+
+    // 2) carga los datos y patch al formulario
+    this.svc.fetchById(this.id).subscribe(c => {
       this.form.patchValue({
         name: c.name,
         status: c.status,
@@ -41,9 +44,9 @@ export class EditCharacterComponent implements OnInit {
 
   save() {
     if (this.form.invalid) return;
-    const updated = { id: this.id, ...this.form.value };
-    this.router.navigate(['/admin']);
+    const updated = this.form.value;
+    // 3) ahora this.id está bien definido
+    this.svc.editInMemory(this.id, updated);
+    this.router.navigate(['/characters']);
   }
-
 }
-

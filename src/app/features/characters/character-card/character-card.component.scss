@@ -27,6 +27,9 @@
 .card-title {
   margin: 0;
   font-size: 1.1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-text {

@@ -33,3 +33,29 @@
     }
   }
 }
+
+.search-form {
+  position: relative;
+  input {
+    width: 100%;
+    padding-right: 2rem;
+  }
+  .btn-clear {
+    position: absolute;
+    right: 0.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: none;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+}
+
+.no-results {
+  padding: 1rem;
+  text-align: center;
+  font-style: italic;
+  color: #555;
+}
+

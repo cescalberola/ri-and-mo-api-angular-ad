@@ -1,7 +1,15 @@
-
 <!-- 1) Búsqueda -->
 <form [formGroup]="form" class="search-form">
   <input formControlName="name" placeholder="Buscar personaje..." />
+  <button
+    type="button"
+    class="btn-clear"
+    *ngIf="form.value.name"
+    (click)="clearSearch()"
+    aria-label="Limpiar búsqueda"
+  >
+    ✕
+  </button>
 </form>
 
 <!-- 2) Botones de filtro -->
@@ -29,10 +37,17 @@
   </button>
 </div>
 
-<div class="cards-container">
+<!-- 3) Mensaje cuando no hay resultados -->
+<div class="no-results" *ngIf="noResults">
+  No hay resultados para "{{ form.value.name }}"
+</div>
+
+<div class="cards-container" *ngIf="!noResults">
   <app-character-card
     *ngFor="let c of characters | statusFilter: statusFilter"
     [character]="c"
+    (edit)="onEdit($event)"
+    (delete)="onDeleteCharacter($event)"
   ></app-character-card>
 </div>
 
